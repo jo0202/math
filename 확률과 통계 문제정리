@@ -1,0 +1,158 @@
+#평균과 표준편차가 주어진 정규분포 파이썬 코드
+import numpy as np
+from matplotlib import pyplot as plt
+from scipy.stats import norm
+
+mu = 50
+sigma = 5
+x= np.arange(mu-30,mu+30,0.1)
+y = norm.pdf(x,mu,sigma)
+
+plt.bar(x,y)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title("")
+plt.show()
+
+#P(1.5<= Z <= 0.5)를 구하는 코드(누적분포함수)
+from scipy.stats import norm
+mu = 0
+sigma = 1
+y1 = norm.cdf(0.5,mu,sigma)
+y2 = norm.cdf(-1.5,mu,sigma)
+
+print("P(1.5<= Z <= 0.5) = ", y1- y2)
+
+#누적분포함수의 역함수
+from scipy.stats import norm
+mu = 0
+sigma = 1
+percent_point = 0.9
+print("P(Z<=k)=0.9,K=",norm.ppf(percent_poin,mu,sigma))
+
+
+
+#표본크기와 표본평균, 표본분산이 주어졌을때 신뢰수준 95%, 99% 두 가지 경우에 대해 신뢰구간을 구하는 코드
+import numpy as np
+from scipy.stats import norm
+
+n = 50
+mu = 70.4
+sigma = 6
+
+sem = sigma/np.sqrt(n)
+
+zu = norm.ppf(0.975,0,1)
+print("z값",zu)
+print("하한",m-zu*sem)
+print("상한",m-zu*sem)
+
+print(norm.interval(0.95,loc=n,scale =sem))
+print(t.interval(0.95,loc=n,scale=sem))
+
+
+#t분포 신뢰구간
+import numpy as np
+from scipy.stats import norm
+from scipy.stats import t
+
+n = 20; mu = 170; s = 15
+sem = s / np.sqrt(n)
+
+zu = t.ppf(0.975,n-1)
+print(zu)
+print("하한",mu-zu*sem)
+print("상한",mu+zu*sem)
+
+zu2 = t.ppf(0.995,n-1)
+print(zu)
+print("하한",mu-zu*sem)
+print("상한",mu+zu*sem)
+
+
+
+#엑셀을 사용하여 결과에 차이가 있는지에 대해 유의수준 5%하에서 가설을 세우고 검정하라
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+from scipy import stats
+
+data = pd.read_excel("")
+mu = 6300; n = 100
+print(data.describe())
+t = (np.mean(data)-mu) / (np.std(data,ddof=1))/ np.sqrt(n)
+print("t값",t)
+p = 1 - stats.t.cdf(t,n-1)
+print("p값",p)
+result = stats.ttest_1samp(data.lunch,mu,alternative='two-sided')
+print(result)
+
+
+data.pd.read_excel("")
+mu = 35; n = 40
+print(data.describe())
+plt.show()
+t = (np.mean(data)-mu) / (np.std(data,ddof=1)) / np.sqrt(n)
+print("t값",t)
+p = 1 - stats.t.cdf(t,n-1)
+print("p값",p)
+result = stats.ttest_1samp(data.smart,mu,alternative='two-sided')
+print(result)
+
+
+#등분산,이분산 결정 후 가설 세우고 검정 p값이 작으면 h0 기각 
+import pandas as pd
+from scipy import stats
+h1 = pd.read_excel("")
+h2 = pd.read_excel("")
+result = stats.levene(a1.china,a2.korea,center= 'mean')
+
+import pandas as pd
+from scipy import stats
+from matplotlib.pyplot as plt
+
+data = pd.read_excel("")
+print(data.describe())
+data.boxplot(column = ['china','korea'],vert = False)
+plt.show()
+
+d1 = pd.read_excel("")
+d2 = pd.read_excel("")
+result = stats.ttest_ind(d1.china,d2.korea,alternative='two-sided')
+print(result)
+
+#대전,광주 근로시간 차이
+import pandas as pd
+from scipy import stats
+h1 = pd.read_excel("")
+result = stats.levene(a1.daejeon,a1.gwangju,center = 'mean')
+print(result)
+
+data = pd.read_excel("")
+print(data,describe())
+data.boxplot(column = ["daejeon, gwanju"],vert = False)
+plt.show()
+result = stats.ttest_ind(data.dajeon,data.gwanju, alternative  = 'greater', equal_var = False)
+print(result)
+
+
+#대응/양측 50명이 수강한 과목에서 기말성적이 중간보다 나아졌는지 유의수준 5% 이하에서 검정하라
+import pandas as pd
+from scipy import stats
+from matplotlib import pyplot as plt
+data = pd.read_excel("")
+print(data[['midterm','final']].describe())
+data.boxplot(column = ['midterm','final'],vert = False)
+plt.show()
+result = stats.ttest_rel(data.midterm, data.final, alternative = 'less')
+print(result)
+
+
+#가입 전과 한달 후의 체중 비교
+import pandas as pd
+from scipy import stats
+from matplotlib import pyplot as plt
+data = pd.read_excel()
+print(data[['before','after']].describe())
+data.boxplot(column=['before','after'],vert = False)
+result =  stats.ttest_rel(data.before,data.after,alternative = 'less')
